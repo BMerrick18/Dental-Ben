@@ -1,0 +1,7 @@
+class Radiographs:
+    def __init__(self, view, site, justification, grade, report):
+        self.view = view
+        self.site = site
+        self.justification = justification
+        self.grade = grade
+        self.report = report
