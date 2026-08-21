@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field, ValidationError
 
 class Attending(BaseModel):
     clinician: str
-    nurse: str
+    nurse: str | None = None
     companions: list[str] = Field(default_factory=list)
 
 

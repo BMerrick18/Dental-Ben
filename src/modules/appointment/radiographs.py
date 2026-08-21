@@ -6,7 +6,7 @@
 #         self.grade = grade
 #         self.report = report
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ValidationError
 
 class Radiographs(BaseModel):
     view: str | None = None

@@ -23,7 +23,7 @@ class Patient(BaseModel):
 if __name__ == "__main__":
     patient = Patient(
         first_name = "Ben",
-        second_name = "Merrick"
+        second_name = "Merrick",
         gender = "male",
         dob = date(2000, 2, 14),
         medical_conditions = ["Asthma", "Diabetes"],

@@ -1,12 +1,12 @@
-from modules.patient.patient import Patient
-from services.input_service import InputService
+from src.modules.patient.patient import Patient
+from src.services.input_service import InputService
 
 def add_patient():
     input_service = InputService()
 
     first_name = input_service.get_name("First Name: ")
     second_name = input_service.get_name("Second Name: ")
-    gender = input_service.get_text("Gender ")
+    gender = input_service.get_text("Gender: ")
     dob = input_service.get_text("Date of birth (YYYY-MM-DD): ")
 
     medical_conditions = input_service.comma_separated_to_list("Medical conditions (comma-separated list): ")

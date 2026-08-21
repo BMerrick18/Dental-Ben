@@ -9,11 +9,11 @@ from pydantic import BaseModel, Field, ValidationError
 #         self.tmj: tmj
 
 class Extra_oral(BaseModel):
-    lymph_nodes: str
-    salivary_glands: str
-    submandibular_zone: str
-    neck: str
-    tmj: str
+    lymph_nodes: str | None = None
+    salivary_glands: str | None = None
+    submandibular_zone: str | None = None
+    neck: str | None = None
+    tmj: str | None = None
     
 # class Intra_oral_st:
 #     def __init__(self, palate, cheeks, lips, tongue, gingiva, floor_of_mouth):
@@ -24,13 +24,13 @@ class Extra_oral(BaseModel):
 #         self.gingiva: gingiva
 #         self.floor_of_mouth: floor_of_mouth
 
-class Intra_oral_ht(BaseModel):
-    palate: str
-    cheeks: str
-    lips: str
-    tongue: str
-    gingiva: str
-    floor_of_mouth: str
+class Intra_oral_st(BaseModel):
+    palate: str | None = None
+    cheeks: str | None = None
+    lips: str | None = None
+    tongue: str | None = None
+    gingiva: str | None = None
+    floor_of_mouth: str | None = None
 
 # class Intra_oral_ht:
 #     def __init__(self, caries, retained_roots, fractures, recurrent_caries):

@@ -8,7 +8,7 @@
 from pydantic import BaseModel, Field, ValidationError
 
 class Diagnosis(BaseModel):
-    tooth: str
-    coronal_diagnosis: str
-    pulp_diagnosis: str
-    apical_diagnosis: str
+    tooth: str | None = None
+    coronal_diagnosis: str | None = None
+    pulp_diagnosis: str | None = None
+    apical_diagnosis: str | None = None
