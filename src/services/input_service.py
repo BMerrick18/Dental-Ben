@@ -2,6 +2,7 @@ class InputService:
     
     #return a list from a comma separated input
     def comma_separated_to_list(self, user_input):
+        user_input = input(user_input)
         return [
             item.strip().lower() for item in user_input.split(',') if item.strip()
         ]
@@ -26,5 +27,9 @@ class InputService:
             return default
         
         return answer
+
+    #return a float from an input
+    def get_float(self, question):
+        return float(input(question).strip())
 
 
