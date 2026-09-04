@@ -14,7 +14,7 @@ def add_socrates_history():
     alleviation = input_service.get_text("Alleviation: ")
     exacerbation = input_service.get_text("Exacerbation: ")
     sleep = input_service.get_text("Sleep: ")
-    severity = input_service.get_with_default("Severity: ", None)
+    severity = input_service.get_float("Severity (0-10, blank to skip): ", min_value=0, max_value=10)
 
     return Socrates_history(
         presenting_complaint=presenting_complaint,

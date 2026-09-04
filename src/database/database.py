@@ -10,7 +10,7 @@ cursor.execute("""
         id INTEGER PRIMARY KEY,
         first_name TEXT NOT NULL,
         last_name TEXT NOT NULL,
-        gender TEXT NOT NULL,
+        sex TEXT NOT NULL,
         date_of_birth TEXT NOT NULL
     )
 """)
@@ -72,14 +72,14 @@ def save_patient(patient):
         INSERT INTO patients (
         first_name,
         last_name,
-        gender,
+        sex,
         date_of_birth
         )
         VALUES (?, ?, ?, ?)
     """, (
         patient.first_name,
         patient.last_name,
-        patient.gender,
+        patient.sex,
         patient.date_of_birth
     ))
 
@@ -195,3 +195,21 @@ def link_patient_allergy(patient_id, allergy_id):
 
     connection.commit()
 
+
+if __name__ == "__main__":
+    tables = cursor.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()
+    print(tables)
+
+    from src.modules.patient.patient import Patient
+
+    # test_patient = Patient(
+    #     first_name="John",
+    #     last_name="Doe",
+    #     sex="Male",
+    #     date_of_birth="1990-01-01"
+    # )
+
+    # test_patient_id = save_patient(test_patient)
+    # print(test_patient_id)
+
+    print(cursor.execute("SELECT * FROM patients").fetchall())
