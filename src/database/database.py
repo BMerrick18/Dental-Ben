@@ -196,6 +196,50 @@ def link_patient_allergy(patient_id, allergy_id):
     connection.commit()
 
 
+### retrieve functions
+
+#retrieve a patient by id
+def retrieve_patient_by_id(patient_id):
+    cursor.execute("""
+        SELECT *
+        FROM patients
+        WHERE id = ?
+    """, (patient_id,))
+    return cursor.fetchone()
+
+#retrieve patients medical conditions by patient id
+def retrieve_patient_medical_conditions_by_id(patient_id):
+    cursor.execute("""
+        SELECT medical_conditions.name
+        FROM medical_conditions
+        JOIN patient_medical_conditions 
+            ON medical_conditions.id = patient_medical_conditions.condition_id
+        WHERE patient_medical_conditions.patient_id = ?
+    """, (patient_id,))
+    return cursor.fetchall()
+
+#retrieve patients medications by patient id
+def retrieve_patient_medications_by_id(patient_id):
+    cursor.execute("""
+        SELECT medications.name
+        FROM medications
+        JOIN patient_medications
+            ON medications.id = patient_medications.medication_id
+        WHERE patient_medications.patient_id = ?
+    """, (patient_id,))
+    return cursor.fetchall()
+
+#retrieve patients allergies by patient id
+def retrieve_patient_allergies_by_id(patient_id):
+    cursor.execute("""
+        SELECT allergies.name
+        FROM allergies
+        JOIN patient_allergies
+            ON allergies.id = patient_allergies.allergy_id
+        WHERE patient_allergies.patient_id = ?
+    """, (patient_id,))
+    return cursor.fetchall()
+
 if __name__ == "__main__":
     tables = cursor.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()
     print(tables)
@@ -212,4 +256,7 @@ if __name__ == "__main__":
     # test_patient_id = save_patient(test_patient)
     # print(test_patient_id)
 
-    print(cursor.execute("SELECT * FROM patients").fetchall())
+    # print(retrieve_patient_by_id(1))
+    # # print(retrieve_patient_medical_conditions_by_id(1))
+    # # print(retrieve_patient_medications_by_id(1))
+    # print(retrieve_patient_allergies_by_id(1))
