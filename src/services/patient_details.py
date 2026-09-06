@@ -28,12 +28,14 @@ def validate_sex(sex):
 
 #get the sex input and validate it, if invalid, ask again
 def get_validated_sex():
-    sex = get_sex()
-    validated_sex = validate_sex(sex)
-    if validated_sex is None:
+    while True:
+        sex = get_sex()
+        validated_sex = validate_sex(sex)
+
+        if validated_sex is not None:
+            return validated_sex
+
         print("Invalid sex at birth. Please enter M or F.")
-        return get_validated_sex()
-    return validated_sex
 
 def get_date_of_birth():
     return input_service.get_text("Date of birth (YYYY-MM-DD): ")
@@ -47,12 +49,14 @@ def validate_date_of_birth(date_of_birth):
 
 #get the date of birth input and validate it, if invalid, ask again
 def get_validated_date_of_birth():
-    date_of_birth = get_date_of_birth()
-    validated_date_of_birth = validate_date_of_birth(date_of_birth)
-    if validated_date_of_birth is None:
+    while True:
+        date_of_birth = get_date_of_birth()
+        validated_date_of_birth = validate_date_of_birth(date_of_birth)
+   
+        if validated_date_of_birth is not None:
+            return validated_date_of_birth
+        
         print("Invalid date. Please enter the date in the format YYYY-MM-DD.")
-        return get_validated_date_of_birth()
-    return validated_date_of_birth
 
 def get_medical_conditions():
     return input_service.comma_separated_to_list("Medical conditions (comma-separated list): ")
