@@ -169,7 +169,6 @@ def link_patient_medical_condition(patient_id, condition_id):
 
     connection.commit()
 
-
 #save a patient id and a medication id to a relationship table
 def link_patient_medication(patient_id, medication_id):
     cursor.execute("""
