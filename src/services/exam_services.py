@@ -47,7 +47,7 @@ def add_intra_oral_ht():
         caries=caries,
         retained_roots=retained_roots,
         fractures=fractures,
-        recurrent_caryes=recurrent_caries)
+        recurrent_caries=recurrent_caries)
 
 def add_special_tests():
     input_service = InputService()
