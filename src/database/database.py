@@ -1,4 +1,4 @@
-import sqlite3
+﻿import sqlite3
 
 connection = sqlite3.connect("patient_database.db", check_same_thread=False)
 cursor = connection.cursor()
@@ -8,8 +8,6 @@ cursor = connection.cursor()
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS patients (
         id INTEGER PRIMARY KEY,
-        first_name TEXT NOT NULL,
-        last_name TEXT NOT NULL,
         sex TEXT NOT NULL,
         date_of_birth TEXT NOT NULL
     )
@@ -70,15 +68,13 @@ cursor.execute("""
 def save_patient(patient):
     cursor.execute("""
         INSERT INTO patients (
-        first_name,
-        last_name,
         sex,
         date_of_birth
         )
-        VALUES (?, ?, ?, ?)
+        VALUES (?, ?)
     """, (
-        patient.first_name,
-        patient.last_name,
+        # patient.first_name,
+        # patient.last_name,
         patient.sex,
         patient.date_of_birth
     ))

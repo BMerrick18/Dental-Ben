@@ -69,10 +69,8 @@ def get_allergies():
 
 #get the patient details and return a Patient object
 def add_patient():
-    input_service = InputService()
-
-    first_name = get_first_name()
-    last_name = get_last_name()
+    # first_name = get_first_name()
+    # last_name = get_last_name()
     sex = get_validated_sex()
     date_of_birth = get_validated_date_of_birth()
     medical_conditions = get_medical_conditions()
@@ -80,8 +78,8 @@ def add_patient():
     allergies = get_allergies()
 
     return Patient(
-        first_name=first_name,
-        last_name=last_name,
+        # first_name=first_name,
+        # last_name=last_name,
         sex=sex,
         date_of_birth=date_of_birth,
         medical_conditions=medical_conditions,
@@ -110,4 +108,4 @@ def save_patient_details(patient):
 
 if __name__ == "__main__":
     test_patient = add_patient()
-    print(test_patient.first_name, test_patient.medical_conditions, test_patient.date_of_birth)
+    print(test_patient.medical_conditions, test_patient.date_of_birth)

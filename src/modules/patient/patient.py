@@ -12,8 +12,8 @@ from pydantic import BaseModel, Field, ValidationError
 from datetime import date 
 
 class Patient(BaseModel):
-    first_name: str
-    last_name: str
+    # first_name: str
+    # last_name: str
     sex: str
     date_of_birth: date
     medical_conditions: list[str] = Field(default_factory=list)
@@ -22,8 +22,8 @@ class Patient(BaseModel):
 
 if __name__ == "__main__":
     patient = Patient(
-        first_name = "Ben",
-        last_name = "Merrick",
+        # first_name = "Ben",
+        # last_name = "Merrick",
         sex = "male",
         date_of_birth = date(2000, 2, 14),
         medical_conditions = ["Asthma", "Diabetes"],
@@ -31,4 +31,4 @@ if __name__ == "__main__":
         allergies = ["Peanuts", "Cats"]
     )
 
-    print(patient.first_name, patient.date_of_birth)
+    print(patient.date_of_birth)
