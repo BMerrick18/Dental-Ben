@@ -1,6 +1,6 @@
-import sqlite3
+﻿import sqlite3
 
-connection = sqlite3.connect("patient_database.db")
+connection = sqlite3.connect("patient_database.db", check_same_thread=False)
 cursor = connection.cursor()
 
 # primary tables
@@ -8,8 +8,6 @@ cursor = connection.cursor()
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS patients (
         id INTEGER PRIMARY KEY,
-        first_name TEXT NOT NULL,
-        last_name TEXT NOT NULL,
         sex TEXT NOT NULL,
         date_of_birth TEXT NOT NULL
     )
@@ -70,15 +68,13 @@ cursor.execute("""
 def save_patient(patient):
     cursor.execute("""
         INSERT INTO patients (
-        first_name,
-        last_name,
         sex,
         date_of_birth
         )
-        VALUES (?, ?, ?, ?)
+        VALUES (?, ?)
     """, (
-        patient.first_name,
-        patient.last_name,
+        # patient.first_name,
+        # patient.last_name,
         patient.sex,
         patient.date_of_birth
     ))
@@ -194,6 +190,50 @@ def link_patient_allergy(patient_id, allergy_id):
 
     connection.commit()
 
+
+### retrieve functions
+
+#retrieve a patient by id
+def retrieve_patient_by_id(patient_id):
+    cursor.execute("""
+        SELECT *
+        FROM patients
+        WHERE id = ?
+    """, (patient_id,))
+    return cursor.fetchone()
+
+#retrieve patients medical conditions by patient id
+def retrieve_patient_medical_conditions_by_id(patient_id):
+    cursor.execute("""
+        SELECT medical_conditions.name
+        FROM medical_conditions
+        JOIN patient_medical_conditions 
+            ON medical_conditions.id = patient_medical_conditions.condition_id
+        WHERE patient_medical_conditions.patient_id = ?
+    """, (patient_id,))
+    return cursor.fetchall()
+
+#retrieve patients medications by patient id
+def retrieve_patient_medications_by_id(patient_id):
+    cursor.execute("""
+        SELECT medications.name
+        FROM medications
+        JOIN patient_medications
+            ON medications.id = patient_medications.medication_id
+        WHERE patient_medications.patient_id = ?
+    """, (patient_id,))
+    return cursor.fetchall()
+
+#retrieve patients allergies by patient id
+def retrieve_patient_allergies_by_id(patient_id):
+    cursor.execute("""
+        SELECT allergies.name
+        FROM allergies
+        JOIN patient_allergies
+            ON allergies.id = patient_allergies.allergy_id
+        WHERE patient_allergies.patient_id = ?
+    """, (patient_id,))
+    return cursor.fetchall()
 
 if __name__ == "__main__":
     tables = cursor.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()
