@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from src.api.routes import health, consultation
+from src.database import database
 
 app = FastAPI(title="Dental-Ben")
 
