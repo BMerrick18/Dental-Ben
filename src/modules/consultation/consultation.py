@@ -20,3 +20,9 @@ class ConsultationDB(SQLModel, table=True):
     consultation_id: str = Field(primary_key=True)
     nickname: str
     status: str
+
+class Conversation_messageDB(SQLModel, table=True):
+    message_id: int | None = Field(default=None, primary_key=True)
+    consultation_id: str
+    role: str
+    content: str

@@ -9,6 +9,7 @@
 
 from pydantic import BaseModel, Field, ValidationError, field_validator
 from typing import Literal
+from sqlmodel import SQLModel, Field
 
 from datetime import date 
 
@@ -48,6 +49,11 @@ class Patient(BaseModel):
         return [item.strip() for item in value if item.strip()]
 
 
+class PatientDB(SQLModel, table=True):
+    patient_id: int | None = Field(default=None, primary_key=True)
+    consultation_id: str = Field(foreign_key="consultationdb.consultation_id")
+    sex: str
+    date_of_birth: date
 
 
 
