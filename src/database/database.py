@@ -3,11 +3,19 @@ from sqlmodel import SQLModel, Session, create_engine
 from sqlalchemy import event
 
 from src.modules.consultation.consultation import (
-    ConsultationDB, 
-    Conversation_messageDB
+    ConsultationDB,
+    ConversationMessageDB,
 )
 
-from src.modules.patient.patient import PatientDB
+from src.modules.patient.patient import (
+    PatientDB,
+    MedicalConditionsDB,
+    MedicationsDB,
+    AllergiesDB,
+    MedicalConditionsLinkDB,
+    MedicationsLinkDB,
+    AllergiesLinkDB
+)
 
 DATABASE_URL = "sqlite:///dental_ben.db"
 
@@ -25,4 +33,5 @@ def enable_sqlite_foreign_keys(dbapi_connection, connection_record):
 SQLModel.metadata.create_all(engine)
 
 def get_session():
-    return Session(engine)
+    with Session(engine) as session:
+        yield session

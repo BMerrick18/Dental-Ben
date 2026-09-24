@@ -1,7 +1,5 @@
 from fastapi import APIRouter, Depends,HTTPException
 from pydantic import BaseModel, Field
-from uuid import uuid4
-from typing import Literal
 from sqlmodel import Session
 
 from src.services.consultation_services import (
@@ -12,12 +10,10 @@ from src.services.consultation_services import (
     end_consultation
 )
 from src.modules.patient.patient import Patient
-from src.modules.consultation.consultation import Consultation, Conversation_message, ConsultationDB
+from src.modules.consultation.consultation import Consultation, ConversationMessage, ConsultationDB
 from src.database.database import get_session
 
 router = APIRouter()
-
-consultations = {}
 
 class StartConsultation(BaseModel):
     nickname: str = Field(min_length=1)
@@ -43,7 +39,10 @@ def add_patient_route(
     session: Session = Depends(get_session)
 ):
     #ask the add_patient service to add the patient to the consultation
-    consultation = add_patient(session, consultation_id, patient)
+    try:
+        consultation = add_patient(session, consultation_id, patient)
+    except ValueError as error:
+        raise HTTPException(status_code=409, detail=str(error))
     #if the consultation is not found, raise an error
     if consultation is None:
         raise HTTPException(status_code=404, detail="Consultation not found")
@@ -54,7 +53,7 @@ def add_patient_route(
 @router.post("/consultation/{consultation_id}/message", response_model=Consultation)
 def add_message_route(
     consultation_id: str, 
-    message: Conversation_message,
+    message: ConversationMessage,
     session: Session = Depends(get_session)
 ):
     consultation = add_message(session, consultation_id, message)
@@ -75,8 +74,11 @@ def get_consultation_route(
 
 # End the consultation and delete it from the consultations dictionary
 @router.delete("/consultation/{consultation_id}")
-def end_consultation_route(consultation_id: str):
-    ended = end_consultation(consultations, consultation_id)
+def end_consultation_route(
+    consultation_id: str,
+    session: Session = Depends(get_session),
+):
+    ended = end_consultation(session, consultation_id)
     if not ended:
         raise HTTPException(status_code=404, detail="Consultation not found")
     return {"status": "Consultation successfully ended and deleted"}
