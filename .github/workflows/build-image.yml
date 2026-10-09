@@ -5,12 +5,34 @@ on:
   pull_request:
 
 jobs:
-  build:
+  checks:
     runs-on: ubuntu-latest
     steps:
       - name: Dowload the repository
         uses: actions/checkout@v4
 
-      - name: Build the docker image
-        run: docker build -t dental-ben:test .
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt ruff pytest
+      
+      - name: Lint
+        run: ruff check .
+
+      - name: Test
+        run: pytest
+
+    build:
+      needs: checks
+      runs-on: ubuntu-latest
+      steps:
+        - name: Dowload the repository
+          uses: actions/checkout@v4
+
+        - name: Build the docker image
+          run: docker build -t dental-ben:test .
+
 
