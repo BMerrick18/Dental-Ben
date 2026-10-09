@@ -1,0 +1,16 @@
+name: Build Image
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dowload the repository
+        uses: actions/checkout@v4
+
+      - name: Build the docker image
+        run: docker build -t dental-ben:test .
+
