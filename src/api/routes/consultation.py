@@ -22,7 +22,8 @@ class StartConsultation(BaseModel):
     nickname: str = Field(min_length=1)
 
 
-# Ask the start_consultation service to start a new consultation and give it a unique ID when a nickname is provided
+# Ask the start_consultation service to start a new consultation
+# and give it a unique ID when a nickname is provided
 @router.post("/consultation", response_model=Consultation)
 def start_consultation_route(
     request: StartConsultation,
@@ -36,7 +37,8 @@ def start_consultation_route(
 def add_patient_route(
     #provide the consultation ID of the consulation to add the patient to
     consultation_id: str,
-    #provide the patient details using the patient model which is validated by the Pydantic model
+    # provide the patient details using the patient model,
+    # which is validated by the Pydantic model
     patient: Patient,
     #provide the session to the database
     session: Session = Depends(get_session)
@@ -64,7 +66,8 @@ def add_message_route(
         raise HTTPException(status_code=404, detail="Consultation not found")
     return consultation
 
-# Ask the get_consultation service to get the consultation details using the consultation ID
+# Ask the get_consultation service to get the consultation details
+# using the consultation ID
 @router.get("/consultation/{consultation_id}", response_model=Consultation)
 def get_consultation_route(
     consultation_id: str,

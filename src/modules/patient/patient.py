@@ -86,7 +86,9 @@ class PatientDB(SQLModel, table=True):
     patient_id: int | None = SQLField(default=None, primary_key=True)
     sex: str
     date_of_birth: date
-    condition_links: list["MedicalConditionsLinkDB"] = Relationship(back_populates="patient")
+    condition_links: list["MedicalConditionsLinkDB"] = Relationship(
+        back_populates="patient"
+    )
     medication_links: list["MedicationsLinkDB"] = Relationship(back_populates="patient")
     allergy_links: list["AllergiesLinkDB"] = Relationship(back_populates="patient")
 
@@ -94,12 +96,17 @@ class PatientDB(SQLModel, table=True):
 class MedicalConditionsDB(SQLModel, table=True):
     medical_condition_id: int | None = SQLField(default=None, primary_key=True)
     name: str
-    patient_links: list["MedicalConditionsLinkDB"] = Relationship(back_populates="condition")
+    patient_links: list["MedicalConditionsLinkDB"] = Relationship(
+        back_populates="condition"
+    )
 
 
 class MedicalConditionsLinkDB(SQLModel, table=True):
     patient_id: int = SQLField(foreign_key="patientdb.patient_id", primary_key=True)
-    medical_condition_id: int = SQLField(foreign_key="medicalconditionsdb.medical_condition_id", primary_key=True)
+    medical_condition_id: int = SQLField(
+        foreign_key="medicalconditionsdb.medical_condition_id",
+        primary_key=True,
+    )
     notes: str | None = None
     patient: PatientDB = Relationship(back_populates="condition_links")
     condition: MedicalConditionsDB = Relationship(back_populates="patient_links")
@@ -113,7 +120,10 @@ class MedicationsDB(SQLModel, table=True):
 
 class MedicationsLinkDB(SQLModel, table=True):
     patient_id: int = SQLField(foreign_key="patientdb.patient_id", primary_key=True)
-    medication_id: int = SQLField(foreign_key="medicationsdb.medication_id", primary_key=True)
+    medication_id: int = SQLField(
+        foreign_key="medicationsdb.medication_id",
+        primary_key=True,
+    )
     notes: str | None = None
     patient: PatientDB = Relationship(back_populates="medication_links")
     medication: MedicationsDB = Relationship(back_populates="patient_links")

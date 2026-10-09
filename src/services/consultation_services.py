@@ -38,7 +38,8 @@ def start_consultation(session, nickname):
 
     return get_consultation(session, consultation_id)
 
-#get a record from the database, or if it doesnt exist, create it, add it to the database, and return it
+# get a record from the database, or if it doesnt exist, create it,
+# add it to the database, and return it
 def get_or_create_by_name(session, model, name):
     row = session.exec(select(model).where(model.name == name)).first()
     if row is None:
@@ -47,7 +48,8 @@ def get_or_create_by_name(session, model, name):
         session.flush()
     return row
 
-#find the medical conditions, medications, and allergies in the database or create them if they dont exist
+# find the medical conditions, medications, and allergies in the database
+# or create them if they dont exist
 #then link them to the patient in the relationship table along with the notes
 def attach_clinical_records(session, patient_id, patient):
     seen_condition_ids = set()
@@ -181,7 +183,9 @@ def get_consultation(session, consultation_id):
 
 #return the messages of the conversation using the consultation ID
 def get_messages(session, consultation_id):
-    statement = select(ConversationMessageDB).where(ConversationMessageDB.consultation_id == consultation_id)
+    statement = select(ConversationMessageDB).where(
+        ConversationMessageDB.consultation_id == consultation_id
+    )
     return session.exec(statement).all()
 
 #return the patient linked to the consultation ID
