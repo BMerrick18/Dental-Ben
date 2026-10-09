@@ -4,13 +4,51 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dowload the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt ruff pytest httpx
+      
+      - name: Lint
+        run: ruff check .
+
+      - name: Test
+        run: pytest
+
   build:
+    needs: checks
     runs-on: ubuntu-latest
     steps:
       - name: Dowload the repository
         uses: actions/checkout@v4
 
       - name: Build the docker image
-        run: docker build -t dental-ben:test .
+        run: docker build -t ghcr.io/bmerrick18/dental-ben:${{ github.sha }} .
+
+      - name: Log in to GitHub Container Registry
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push the image
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: docker push ghcr.io/bmerrick18/dental-ben:${{ github.sha }}
+
 
