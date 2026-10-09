@@ -1,0 +1,5 @@
+# Packages the application itself needs.
+# Do not edit requirements.txt by hand. It is generated from this file.
+fastapi
+uvicorn
+sqlmodel

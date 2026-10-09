@@ -1,0 +1,21 @@
+version: 2
+updates:
+  # Opens a pull request when a Python package in the lockfiles has a newer version.
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      python-packages:
+        patterns:
+          - "*"
+
+  # Opens a pull request when a pinned GitHub Action has a newer version.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      github-actions:
+        patterns:
+          - "*"
