@@ -25,14 +25,14 @@ jobs:
       - name: Test
         run: pytest
 
-    build:
-      needs: checks
-      runs-on: ubuntu-latest
-      steps:
-        - name: Dowload the repository
-          uses: actions/checkout@v4
+  build:
+    needs: checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dowload the repository
+        uses: actions/checkout@v4
 
-        - name: Build the docker image
-          run: docker build -t dental-ben:test .
+      - name: Build the docker image
+        run: docker build -t dental-ben:test .
 
 
