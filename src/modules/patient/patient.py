@@ -1,7 +1,10 @@
-from pydantic import BaseModel, Field, field_validator
-from typing import Literal
 from datetime import date
-from sqlmodel import SQLModel, Field as SQLField, Relationship
+from typing import Literal
+
+from pydantic import BaseModel, Field, field_validator
+from sqlmodel import Field as SQLField
+from sqlmodel import Relationship, SQLModel
+
 
 #convert blank notes in the medical conditions, medications, and allergies to None
 def blank_notes_to_none(value):

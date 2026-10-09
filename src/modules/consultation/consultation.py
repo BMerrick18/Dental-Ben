@@ -1,8 +1,11 @@
-from pydantic import BaseModel, Field as PydanticField
 from typing import Literal
+
+from pydantic import BaseModel
+from pydantic import Field as PydanticField
 from sqlmodel import Field, SQLModel
 
 from src.modules.patient.patient import Patient
+
 
 class ConversationMessage(BaseModel):
     role: Literal["user", "assistant"]

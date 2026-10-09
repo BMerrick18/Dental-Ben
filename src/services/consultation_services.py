@@ -1,4 +1,5 @@
 from uuid import uuid4
+
 from sqlmodel import select
 
 from src.modules.consultation.consultation import (
@@ -8,18 +9,19 @@ from src.modules.consultation.consultation import (
     ConversationMessageDB,
 )
 from src.modules.patient.patient import (
+    AllergiesDB,
+    AllergiesLinkDB,
+    Allergy,
+    MedicalCondition,
+    MedicalConditionsDB,
+    MedicalConditionsLinkDB,
+    Medication,
+    MedicationsDB,
+    MedicationsLinkDB,
     Patient,
     PatientDB,
-    MedicalCondition,
-    Medication,
-    Allergy,
-    MedicalConditionsDB,
-    MedicationsDB,
-    AllergiesDB,
-    MedicalConditionsLinkDB,
-    MedicationsLinkDB,
-    AllergiesLinkDB,
 )
+
 
 # provide a nickname to start a new consultation and give it a unique ID
 def start_consultation(session, nickname):

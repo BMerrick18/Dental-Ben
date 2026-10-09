@@ -1,20 +1,19 @@
 
-from sqlmodel import SQLModel, Session, create_engine
 from sqlalchemy import event
+from sqlmodel import Session, SQLModel, create_engine
 
 from src.modules.consultation.consultation import (
     ConsultationDB,
     ConversationMessageDB,
 )
-
 from src.modules.patient.patient import (
-    PatientDB,
-    MedicalConditionsDB,
-    MedicationsDB,
     AllergiesDB,
+    AllergiesLinkDB,
+    MedicalConditionsDB,
     MedicalConditionsLinkDB,
+    MedicationsDB,
     MedicationsLinkDB,
-    AllergiesLinkDB
+    PatientDB,
 )
 
 DATABASE_URL = "sqlite:///dental_ben.db"

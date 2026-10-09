@@ -1,17 +1,20 @@
-from fastapi import APIRouter, Depends,HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 from sqlmodel import Session
 
-from src.services.consultation_services import (
-    get_consultation, 
-    add_message, 
-    start_consultation,
-    add_patient,
-    end_consultation
+from src.database.database import get_session
+from src.modules.consultation.consultation import (
+    Consultation,
+    ConversationMessage,
 )
 from src.modules.patient.patient import Patient
-from src.modules.consultation.consultation import Consultation, ConversationMessage, ConsultationDB
-from src.database.database import get_session
+from src.services.consultation_services import (
+    add_message,
+    add_patient,
+    end_consultation,
+    get_consultation,
+    start_consultation,
+)
 
 router = APIRouter()
 
